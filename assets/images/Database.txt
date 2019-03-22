@@ -1,0 +1,38 @@
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+DROP DATABASE IF EXISTS bamazon_DB;
+
+CREATE DATABASE bamazon_DB;
+
+use bamazon_DB;
+CREATE TABLE products (
+    item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(30),
+    department_name VARCHAR(30),
+    price INTEGER,
+    stock_quantity INTEGER
+);
+
+
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Table", "Furniture", 850, 20);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Chair", "Furniture", 200, 30);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Laptop", "Electronics", 1200, 10);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Universal Remote", "Electronics", 35, 200);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Chips", "Food", 1.50, 5000);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Cookies", "Food", 2.50, 300);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("T-shirt", "Clothing", 15.00, 100);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Shorts", "Clothing", 12.00, 20);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Blender", "Kitchen", 275, 300);
+INSERT INTO products (product_name,department_name, price, stock_quantity)
+VALUES ("Pressure Cooker", "Kitchen", 1350, 50);
+
+SELECT * FROM products;

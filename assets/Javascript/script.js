@@ -22,17 +22,26 @@ connection.query('SELECT * FROM products', function (error, results, fields){
         var price = results[i].price + "$";
     console.log(itemID, name, price);
     }
-});
 
-// Use inquirer to prompt user to choose an item for purchase.
 
-inquirer 
+    inquirer 
     .prompt([
         {
-            name: "purchase",
+            // Use inquirer to prompt user to choose an item for purchase.
+            name: "itemID",
             type:"input",
-            message:"Which item would you like to purchase? Enter ID#"
+            message:"Which item would you like to purchase? Choose ID number"
+        },
+        {
+            // Use inquirer to prompt user for .
+            name:"quantity",
+            type:"input",
+            message:"How many would you like to buy?"
         }
     ]).then(function(answer){
-        
+        console.log(answer);
     })
+});
+
+
+
