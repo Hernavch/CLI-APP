@@ -18,6 +18,16 @@
 
  ![Database Table/mySQL](assets/images/DatabaseTable.PNG)
 
- Users can choose an item using answering the prompt
- ![Database Table/mySQL](assets/images/inquirer.PNG)
+## Users can choose an item using answering the prompt.
+ ![Database Table/mySQL](assets/images/OrderChairs.PNG)
+
+## If there is sufficient stock the order is placed and reflected in the Database
+![Database Table/mySQL](assets/images/DatabaseChairOrder.PNG)
+
+## If another order is placed 
+![Database Table/mySQL](assets/images/NewChairOrder.PNG)
+
+## If there is insufficent stock you will recieve an error and order will not be placed.
+![Database Table/mySQL](assets/images/InsufficientChairOrder.PNG)
+
 
