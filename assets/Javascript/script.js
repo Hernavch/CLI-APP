@@ -16,11 +16,13 @@ connection.connect();
 connection.query('SELECT * FROM products', function (error, results, fields){
     if (error) throw error;
     // Loop through all items and show ID number, item name and price
-    for(var i= 0; i< 10; i++){
+    var ids= [];
+    for(var i= 0; i< results.length; i++){
         var itemID = results[i].item_id;
         var name = results[i].product_name;
         var price = results[i].price + "$";
     console.log(itemID, name, price);
+    ids.push(itemID);
     }
 
 
@@ -29,17 +31,55 @@ connection.query('SELECT * FROM products', function (error, results, fields){
         {
             // Use inquirer to prompt user to choose an item for purchase.
             name: "itemID",
-            type:"input",
+            type:"number",
             message:"Which item would you like to purchase? Choose ID number"
         },
         {
             // Use inquirer to prompt user for .
             name:"quantity",
-            type:"input",
+            type:"number",
             message:"How many would you like to buy?"
         }
     ]).then(function(answer){
         console.log(answer);
+        //console.log(results);
+        var chosen = results.find(function(item) {
+            return item.item_id === answer.itemID;
+           
+
+            // if (answer.quantity < results.stock_quantity){
+            //     alert('Maybe THis?')
+            // }
+        });
+
+        function getName(item){
+            return item.product_name ;
+            
+        }
+
+        
+        
+
+        var stockCount = results.find(function(stock) {
+            return stock.stock_quantity - answer.quantity;
+        });
+        console.log(chosen);
+        // console.log(stockCount);
+
+        var number = parseInt(answer.itemID);
+
+        if(!ids.includes(number)){
+            console.log('Invalid ID #');
+        }
+
+        var quantity = (results.stock_quantity);
+        var newQuantity = answer.quantity 
+        // console.log(quantity);
+        // var newQuantity = quantity - 4
+    
+        
+            
+    
     })
 });
 
