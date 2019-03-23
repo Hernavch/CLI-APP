@@ -17,3 +17,7 @@
  ### Images
 
  ![Database Table/mySQL](assets/images/DatabaseTable.PNG)
+
+ Users can choose an item using answering the prompt
+ ![Database Table/mySQL](assets/images/inquirer.PNG)
+
