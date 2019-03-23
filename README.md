@@ -14,4 +14,6 @@
  * Clothing
 
 
- ### Links
+ ### Images
+
+ ![Database Table/mySQL](assets/images/DatabaseTable.PNG)
