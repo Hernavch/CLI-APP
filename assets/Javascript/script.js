@@ -41,24 +41,32 @@ connection.query('SELECT * FROM products', function (error, results, fields){
             message:"How many would you like to buy?"
         }
     ]).then(function(answer){
-        console.log(answer);
+        // console.log(answer);
+      
         //console.log(results);
         var chosen = results.find(function(item) {
             return item.item_id === answer.itemID;
-           
-
-            // if (answer.quantity < results.stock_quantity){
-            //     alert('Maybe THis?')
-            // }
-        });
-
-        function getName(item){
-            return item.product_name ;
             
-        }
+           });
 
-        
-        
+           connection.query('SELECT * FROM products WHERE ?', chosen , function (error, results, fields){
+                 
+            var newQuantity = chosen.stock_quantity - answer.quantity;
+            console.log(newQuantity);
+
+            connection.query('UPDATE products SET ? WHERE ?', [
+                {
+                    stock_quantity: newQuantity
+                },
+                {
+                    item_id:answer.itemID
+                }
+            ] , function (error, results, fields){
+
+            });
+           });
+        //    console.log(this);
+               
 
         var stockCount = results.find(function(stock) {
             return stock.stock_quantity - answer.quantity;
