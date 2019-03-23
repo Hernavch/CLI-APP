@@ -21,7 +21,8 @@ connection.query('SELECT * FROM products', function (error, results, fields){
         var itemID = results[i].item_id;
         var name = results[i].product_name;
         var price = results[i].price + "$";
-    console.log(itemID, name, price);
+        var stock = results[i].stock_quantity;
+    console.log(itemID, name, price, stock);
     ids.push(itemID);
     }
 
@@ -43,45 +44,53 @@ connection.query('SELECT * FROM products', function (error, results, fields){
     ]).then(function(answer){
         // console.log(answer);
       
-        //console.log(results);
+        //Search through the data and find the item_ID #
         var chosen = results.find(function(item) {
             return item.item_id === answer.itemID;
             
            });
-
+        //    
+        //  Create a query in the database that is able to pull the information where the chosen id matches the user
+        // input. 
            connection.query('SELECT * FROM products WHERE ?', chosen , function (error, results, fields){
-                 
-            var newQuantity = chosen.stock_quantity - answer.quantity;
-            console.log(newQuantity);
+                
+                //CALCULATE the quantity chosen and subtract it from what is available  
+                var newQuantity = chosen.stock_quantity - answer.quantity;
+                console.log("New stock_quantity post order: ",newQuantity);
 
-            connection.query('UPDATE products SET ? WHERE ?', [
-                {
-                    stock_quantity: newQuantity
-                },
-                {
-                    item_id:answer.itemID
+
+                if (newQuantity <=0 ){
+                    console.log("Insufficient Quantity!")
+                }else if (newQuantity > 0){
+                    connection.query('UPDATE products SET ? WHERE ?', [
+                    {
+                        stock_quantity: newQuantity
+                    },
+                    {
+                        item_id:answer.itemID
+                    }] , 
+                    function (error, results, fields){
+
+                    });
                 }
-            ] , function (error, results, fields){
-
-            });
            });
         //    console.log(this);
                
 
-        var stockCount = results.find(function(stock) {
-            return stock.stock_quantity - answer.quantity;
-        });
+        // var stockCount = results.find(function(stock) {
+        //     return stock.stock_quantity - answer.quantity;
+        // });
         console.log(chosen);
-        // console.log(stockCount);
+        // // console.log(stockCount);
 
-        var number = parseInt(answer.itemID);
+        // var number = parseInt(answer.itemID);
 
-        if(!ids.includes(number)){
-            console.log('Invalid ID #');
-        }
+        // if(!ids.includes(number)){
+        //     console.log('Invalid ID #');
+        // }
 
-        var quantity = (results.stock_quantity);
-        var newQuantity = answer.quantity 
+        // var quantity = (results.stock_quantity);
+        // var newQuantity = answer.quantity 
         // console.log(quantity);
         // var newQuantity = quantity - 4
     
